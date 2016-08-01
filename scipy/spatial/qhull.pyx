@@ -135,6 +135,7 @@ cdef extern from "qhull/src/libqhull_r.h":
         setT *other_points
         unsigned int visit_id
         unsigned int vertex_visit
+        int hull_dim
 
     extern int qh_PRINToff
     extern int qh_ALL
@@ -592,8 +593,8 @@ cdef class _Qhull:
 
         self.check_active()
 
-        facet_ndim = self.ndim
-        numpoints = self.numpoints
+        facet_ndim = self._qh.hull_dim
+        numpoints = self._qh.num_points
 
         if self._is_delaunay:
             facet_ndim += 1
